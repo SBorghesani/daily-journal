@@ -74,7 +74,7 @@ export const EntryForm = ({ entry, moods, onFormSubmit }) => {
                                     <option value="0">Select a mood</option>
                                     {moods.map(m => (
                                         <option key={m.id} value={m.id}>
-                                            {m.label}
+                                            {m.mood}
                                         </option>
                                     ))}
                                 </select>

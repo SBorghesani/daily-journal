@@ -3,7 +3,7 @@ import React from "react";
 export const Entry = ({ entry, mood, onEditButtonClick, onDeleteButtonClick }) => {
   const getMessageType = () => {
     if (mood) {
-      switch (mood.label) {
+      switch (mood.mood) {
         case 'Angry':
           return 'is-danger'
         case 'Happy':
@@ -24,7 +24,7 @@ export const Entry = ({ entry, mood, onEditButtonClick, onDeleteButtonClick }) =
         <p className="entry__concept">{entry.concept}</p>
         <p className="entry__entry">{entry.entry}</p>
         <p className="entry__date">{entry.date}</p>
-        <p className="entry__mood">{mood?.label}</p>
+        <p className="entry__mood">{mood?.mood}</p>
         <div className="buttons">
           <button className={`button ${getMessageType()} is-outlined`} onClick={
             () => {

@@ -37,7 +37,7 @@ export const EntryList = ({ moods, entries, onEditButtonClick, onDeleteButtonCli
             return <a
               onClick={() => filterAllEntries(mood.id)}
               className={moodSelected === mood.id ? "is-active" : ""}
-            >{mood.label}</a>
+            >{mood.mood}</a>
           })
         }
       </p>
