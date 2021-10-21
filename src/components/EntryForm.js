@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react"
+import ReactDOM from 'react-dom'
 
-export const EntryForm = ({ entry, moods, onFormSubmit }) => {
+export const EntryForm = ({ entry, moods, tags, onFormSubmit }) => {
     const [editMode, setEditMode] = useState(false)
     const [updatedEntry, setUpdatedEntry] = useState(entry)
+    const [toggleChecks, setChecks] = useState(false)
 
     useEffect(() => {
         setUpdatedEntry(entry)
@@ -14,6 +16,7 @@ export const EntryForm = ({ entry, moods, onFormSubmit }) => {
         }
     }, [entry])
 
+
     const handleControlledInputChange = (event) => {
         /*
             When changing a state object or array, always create a new one
@@ -24,7 +27,22 @@ export const EntryForm = ({ entry, moods, onFormSubmit }) => {
         setUpdatedEntry(newEntry)
     }
 
-
+    const handleTagCheckboxes = (event) => {
+        const [,targetId] = event.target.id.split('--')
+        console.log(parseInt(targetId))
+        const newEntry = Object.assign({}, updatedEntry)
+        if (newEntry.tag_ids) {
+            if (newEntry.tag_ids.includes(event.target.value)) {
+                newEntry.tag_ids.pop(event.target.value)
+            } else{
+                newEntry.tag_ids.push(event.target.value)
+            }
+        }else {
+            newEntry.tag_ids = []
+            newEntry.tag_ids.push(event.target.value)
+        }
+        setUpdatedEntry(newEntry)
+    }
 
     const constructNewEntry = () => {
         const copyEntry = { ...updatedEntry }
@@ -34,6 +52,7 @@ export const EntryForm = ({ entry, moods, onFormSubmit }) => {
         }
         onFormSubmit(copyEntry)
     }
+
 
     return (
         <article className="panel is-info">
@@ -62,6 +81,12 @@ export const EntryForm = ({ entry, moods, onFormSubmit }) => {
                             ></textarea>
                         </div>
                     </div>
+                    {tags.map(tag => (<>
+                        <label htmlFor="tagIds" className="">{tag.name} </label>
+                        <input type="checkbox" id={`tag--${tag.id}`} name={tag.name} value={tag.id}
+                        onChange={handleTagCheckboxes}></input>
+                        </>
+                    ))}                        
                     <div className="field">
                         <label htmlFor="moodId" className="label">Mood: </label>
                         <div className="control">

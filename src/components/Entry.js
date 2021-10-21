@@ -18,13 +18,20 @@ export const Entry = ({ entry, mood, onEditButtonClick, onDeleteButtonClick }) =
     }
   }
 
+  const displayTags = () => {
+      return entry.tag_ids?.map(tagName => {
+        return tagName.name
+      }).join(', ')
+  }
+
   return (
     <article className={`message ${getMessageType()}`} style={{width:"100%"}}>
       <div className="message-body">
         <p className="entry__concept">{entry.concept}</p>
         <p className="entry__entry">{entry.entry}</p>
         <p className="entry__date">{entry.date}</p>
-        <p className="entry__mood">{mood?.mood}</p>
+        <p className="entry__mood">Mood: {entry.mood?.mood}</p>
+        <p className="entry__tags">Tags: {displayTags()}</p>
         <div className="buttons">
           <button className={`button ${getMessageType()} is-outlined`} onClick={
             () => {
